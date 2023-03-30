@@ -1,0 +1,31 @@
+{
+    "sales": {
+        "CreditSales": "$36,059",
+        "ChannelSales": "$24,834",
+        "DirectSales": "$15,650"
+    },
+    "novemberSales": {
+        "lines": [
+            {
+                "novemberSales": "Dallas Oak Dining Chair",
+                "total": "$1,342",
+                "quantity": "20"
+            },
+            {
+                "novemberSales": "Benmore Glass Coffee Table",
+                "total": "$1,550",
+                "quantity": "18"
+            },
+            {
+                "novemberSales": "Aoraki Leather Sofa",
+                "total": "$4,170",
+                "quantity": "15"
+            },
+            {
+                "novemberSales": "Bali Outdoor Wicker Chair",
+                "total": "$2,974",
+                "quantity": "25"
+            }
+        ]
+    }
+}

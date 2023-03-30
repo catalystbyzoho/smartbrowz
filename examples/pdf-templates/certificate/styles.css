@@ -1,0 +1,114 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+p{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+h2 {
+  font-family: "Parisienne", cursive;
+  font-size: 60px;
+  font-weight: normal;
+}
+
+header > img {
+  height: 80px;
+  object-fit: contain;
+}
+
+body {
+  position: relative;
+  background-color: #f0f0f2;
+}
+
+.bg-right {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+.bg-down {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  height: 300px;
+  width: auto;
+}
+
+.bg-left {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 400px;
+  width: auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.participation {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.participation > img {
+  height: 12px;
+  object-fit: contain;
+}
+
+.cert-name {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cert-desc {
+  margin-top: 20px;
+  width: 70%;
+  font-size: 16px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.cert-desc > span {
+  font-weight: bold;
+}
+
+footer {
+  margin-top: 120px;
+  display: flex;
+  gap: 200px;
+  position: relative;
+}
+
+footer > div {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hr-sign {
+  height: 100px;
+  width: 100px;
+}
+
+.pm-sign {
+  height: 100px;
+  width: auto;
+}
+
+footer img {
+  width: 160px;
+}

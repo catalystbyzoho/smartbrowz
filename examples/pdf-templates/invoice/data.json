@@ -1,0 +1,47 @@
+{
+    "account": {
+        "company": "Zoho Corporation Private Limited",
+        "address": "Estancia IT Park",
+        "city": "Chennai",
+        "country": "India",
+        "postal": "600028",
+        "logo": "https://www.zoho.com/sites/default/files/ogimage/zoho-logo.png"
+    },
+    "billto": {
+        "company": "Zoho Corporation Private Limited",
+        "address": "Estancia IT Park",
+        "city": "Chennai",
+        "country": "India",
+        "postal": "600028"
+    },
+    "invoice": {
+        "id": "",
+        "date": "01/01/2021",
+        "due_date": "20/05/2021",
+        "lines": [
+            {
+                "total": "240",
+                "quantity": "12",
+                "price": "20",
+                "description": "Item 124",
+                "id": "124"
+            },
+            {
+                "total": "100",
+                "quantity": "1",
+                "price": "100",
+                "description": "Item 125",
+                "id": "125"
+            },
+            {
+                "total": "132",
+                "quantity": "3",
+                "price": "40",
+                "description": "Item 126",
+                "id": "126"
+            }
+        ],
+        "total_price": "160",
+        "notes": "This sales order line should now have a highlighted attachments field when looking at it from the list pane, however user will have to dig into the attachments to see the note attached"
+    }
+}
