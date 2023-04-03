@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 p{
@@ -17,8 +18,14 @@ h2 {
 }
 
 header > img {
-  height: 80px;
+  height: 38px;
   object-fit: contain;
+}
+
+header{
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 body {
@@ -97,16 +104,6 @@ footer > div {
   gap: 12px;
   align-items: center;
   flex-direction: column;
-}
-
-.hr-sign {
-  height: 100px;
-  width: 100px;
-}
-
-.pm-sign {
-  height: 100px;
-  width: auto;
 }
 
 footer img {
