@@ -1,79 +1,565 @@
 <!DOCTYPE html>
-<html>
-<body style="overflow-y:auto;">
-<section class="header">
-  <div class="left-header">
-  	<img 
-    src="{{ account.logo }}" 
-    width= "100px"; 
-    height="100px";
-    >
-    <p class="company-name" style="margin-top: -20px;">INVOICE</p>
-  </div>
-  <div class="right-header right">
-  	<p class="company-name">{{ account.company }}</p>
-    <p>{{ account.address }}</p>
-    <p>{{ account.city }}</p>
-    <p>{{ account.country }}</p>
-    <p>{{ account.postal }}</p>
-  </div>
-</section>
-<section class="bill-details">
-  <div class="left-header left">
-  	<p class="title">BILL TO:</p>
-    <p class="company-name">{{ billto.company }}</p>
-    <p>{{ billto.address }}</p>
-    <p>{{ billto.city }}</p>
-    <p>{{ billto.country }}</p>
-    <p>{{ billto.postal }}</p>
-  </div>
-  <div class="right-header right">
-  	<p class="title">INVOICE ID</p>
-    <p>{{ invoice.id }}</p>
-    <p class="title">DATE</p>
-    <p>{{ invoice.date }}</p>
-    <p class="title">INVOICE DUE DATE</p>
-    <p>{{ invoice.due_date }}</p>
-  </div>
-</section>
-<section class="table">
-<table>
-  <tr>
-    <th>ID</th>
-    <th>DESCRIPTION</th>
-    <th>QUANTITY</th>
-    <th>PRICE/UNIT</th>
-    <th>PRICE</th>
-  </tr>
-  {% for item in invoice.lines %}
-  <tr>
-    <td>{{ item.id }}</td>
-    <td>{{ item.description }}</td>
-    <td>{{ item.quantity }}</td>
-    <td>{{ item.price }}</td>
-    <td>{{ item.total }}</td>
-  </tr>
-  {% endfor %}
-</table>
-</section>
-<section class="total-price">
-  <div class="left-price-column">
-    <p class="title">NOTES : </p>
-    <p>{{ invoice.notes }}</p>
-  </div>
-  <div class="right-price-column right">
-        <p>TOTAL</p>
-        <p class="total">{{ invoice.total_price }}</p>
-  </div>
-</section>
-<section class="footer">
-    <p class="title">POWERED BY </p>
-    <img 
-    src="{{ account.logo }}" 
-    width= "50px"; 
-    height="50px";
-    style="margin: -15px 0 0 5px;"
-    >
-</section>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+    rel="stylesheet">
+  <title>Invoice Template</title>
+</head>
+
+<body>
+  <!-- Header -->
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable">
+    <tr>
+      <td height="20"></td>
+    </tr>
+    <tr>
+      <td>
+        <table border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff"
+          style="border-radius: 10px 10px 0 0">
+          <tr class="hiddenMobile">
+            <td height="40"></td>
+          </tr>
+          <tr class="visibleMobile">
+            <td height="30"></td>
+          </tr>
+          <tr>
+            <td>
+              <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                <tbody>
+                  <tr>
+                    <td style="display:flex">
+                      <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
+                        <tbody>
+                          <tr>
+                            <td class="brand-logo" align="left">
+                              <img
+                                  src="{{brand_logo}}"
+                                  width="32"
+                                  height="32"
+                                  alt="logo"
+                                  border="0"
+                                />
+                              <h4>{{brand_name}}</h4>
+                            </td>
+                          </tr>
+                          <tr class="hiddenMobile">
+                            <td height="40"></td>
+                          </tr>
+                          <tr class="visibleMobile">
+                            <td height="20"></td>
+                          </tr>
+                          <tr>
+                            <td style="
+                                  font-size: 12px;
+                                  color: #5b5b5b;
+                                  font-family: 'Open Sans', sans-serif;
+                                  line-height: 18px;
+                                  vertical-align: top;
+                                  text-align: left;
+                                ">
+                              Hello, {{customer_name}}.
+                              <br />
+                                Thank you for shopping from our store and for
+                                your order.
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
+                        <tbody>
+                          <tr class="visibleMobile">
+                            <td height="20"></td>
+                          </tr>
+                          <tr>
+                            <td height="5"></td>
+                          </tr>
+                          <tr>
+                            <td style="
+                                  font-size: 21px;
+                                  color: #ff0000;
+                                  letter-spacing: -1px;
+                                  font-family: 'Open Sans', sans-serif;
+                                  line-height: 1;
+                                  vertical-align: top;
+                                  text-align: right;
+                                ">
+                              Invoice
+                            </td>
+                          </tr>
+                          <tr></tr>
+                          <tr class="hiddenMobile">
+                            <td height="50"></td>
+                          </tr>
+                          <tr class="visibleMobile">
+                            <td height="20"></td>
+                          </tr>
+                          <tr>
+                            <td style="
+                                  font-size: 12px;
+                                  color: #5b5b5b;
+                                  font-family: 'Open Sans', sans-serif;
+                                  line-height: 18px;
+                                  vertical-align: top;
+                                  text-align: right;
+                                ">
+                              <small>ORDER</small> #{{order_id}}<br />
+                              <small>{{order_date}}</small>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <!-- /Header -->
+  <!-- Order Details -->
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable">
+    <tbody>
+      <tr>
+        <td>
+          <table border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+            <tbody>
+              <tr></tr>
+              <tr class="hiddenMobile">
+                <td height="60"></td>
+              </tr>
+              <tr class="visibleMobile">
+                <td height="40"></td>
+              </tr>
+              <tr>
+                <td>
+                  <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                    <tbody>
+                      <tr>
+                        <th style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #5b5b5b;
+                              font-weight: normal;
+                              line-height: 1;
+                              vertical-align: top;
+                              padding: 0 10px 7px 0;
+                            " width="52%" align="left">
+                          Item
+                        </th>
+                        <th style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #5b5b5b;
+                              font-weight: normal;
+                              line-height: 1;
+                              vertical-align: top;
+                              padding: 0 0 7px;
+                            " align="left">
+                          <small>Unit</small>
+                        </th>
+                        <th style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #5b5b5b;
+                              font-weight: normal;
+                              line-height: 1;
+                              vertical-align: top;
+                              padding: 0 0 7px;
+                            " align="center">
+                          Quantity
+                        </th>
+                        <th style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #1e2b33;
+                              font-weight: normal;
+                              line-height: 1;
+                              vertical-align: top;
+                              padding: 0 0 7px;
+                            " align="right">
+                          Subtotal
+                        </th>
+                      </tr>
+                      <tr>
+                        <td height="1" style="background: #bebebe" colspan="4"></td>
+                      </tr>
+                      <tr>
+                        <td height="10" colspan="4"></td>
+                      </tr>
+
+                      {% for product in products %}
+                      <tr>
+                        <td style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #ff0000;
+                              line-height: 18px;
+                              vertical-align: top;
+                              padding: 10px 0;
+                            " class="article">
+                          {{product.name}}
+                        </td>
+                        <td style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #646a6e;
+                              line-height: 18px;
+                              vertical-align: top;
+                              padding: 10px 0;
+                            ">
+                          <small>{{product.unit}}</small>
+                        </td>
+                        <td style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #646a6e;
+                              line-height: 18px;
+                              vertical-align: top;
+                              padding: 10px 0;
+                            " align="center">
+                          {{product.quantity}}
+                        </td>
+                        <td style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #1e2b33;
+                              line-height: 18px;
+                              vertical-align: top;
+                              padding: 10px 0;
+                            " align="right">
+                          ${{product.price}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="1" colspan="4" style="border-bottom: 1px solid #e4e4e4"></td>
+                      </tr>
+
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td height="20"></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- /Order Details -->
+  <!-- Total -->
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable">
+    <tbody>
+      <tr>
+        <td>
+          <table border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+            <tbody>
+              <tr>
+                <td>
+                  <!-- Table Total -->
+                  <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                    <tbody>
+                      <tr>
+                        <td style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #646a6e;
+                              line-height: 22px;
+                              vertical-align: top;
+                              text-align: right;
+                            ">
+                          Subtotal
+                        </td>
+                        <td style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #646a6e;
+                              line-height: 22px;
+                              vertical-align: top;
+                              text-align: right;
+                              white-space: nowrap;
+                            " width="80">
+                          ${{sub_total}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #646a6e;
+                              line-height: 22px;
+                              vertical-align: top;
+                              text-align: right;
+                            ">
+                          Shipping &amp; Handling
+                        </td>
+                        <td style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #646a6e;
+                              line-height: 22px;
+                              vertical-align: top;
+                              text-align: right;
+                            ">
+                          ${{shipment_charge}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #000;
+                              line-height: 22px;
+                              vertical-align: top;
+                              text-align: right;
+                            ">
+                          <strong>Grand Total (Incl.Tax)</strong>
+                        </td>
+                        <td style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #000;
+                              line-height: 22px;
+                              vertical-align: top;
+                              text-align: right;
+                            ">
+                          <strong>${{total}}</strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #b0b0b0;
+                              line-height: 22px;
+                              vertical-align: top;
+                              text-align: right;
+                            ">
+                          <small>TAX</small>
+                        </td>
+                        <td style="
+                              font-size: 12px;
+                              font-family: 'Open Sans', sans-serif;
+                              color: #b0b0b0;
+                              line-height: 22px;
+                              vertical-align: top;
+                              text-align: right;
+                            ">
+                          <small>${{tax}}</small>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- /Table Total -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- /Total -->
+  <!-- Information -->
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable">
+    <tbody>
+      <tr>
+        <td>
+          <table border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable">
+            <tbody>
+              <tr></tr>
+              <tr class="hiddenMobile">
+                <td height="60"></td>
+              </tr>
+              <tr class="visibleMobile">
+                <td height="40"></td>
+              </tr>
+              <tr>
+                <td>
+                  <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                    <tbody>
+                      <tr>
+                        <td style="display:flex">
+                          <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
+                            <tbody>
+                              <tr>
+                                <td style="
+                                      font-size: 11px;
+                                      font-family: 'Open Sans', sans-serif;
+                                      color: #5b5b5b;
+                                      line-height: 1;
+                                      vertical-align: top;
+                                    ">
+                                  <strong>BILLING INFORMATION</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td width="100%" height="10"></td>
+                              </tr>
+                              <tr>
+                                <td style="
+                                      font-size: 12px;
+                                      font-family: 'Open Sans', sans-serif;
+                                      color: #5b5b5b;
+                                      line-height: 20px;;      
+                                      vertical-align: top;
+                                    ">
+                                  <p style="width:200px; word-wrap: break-word;">
+                                    {{billing_address}}
+                                  </p>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
+                            <tbody>
+                              <tr class="visibleMobile">
+                                <td height="20"></td>
+                              </tr>
+                              <tr>
+                                <td style="
+                                      font-size: 11px;
+                                      font-family: 'Open Sans', sans-serif;
+                                      color: #5b5b5b;
+                                      line-height: 1;
+                                      vertical-align: top;
+                                    ">
+                                  <strong>PAYMENT METHOD</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td width="100%" height="10"></td>
+                              </tr>
+                              <tr>
+                                <td style="
+                                      font-size: 12px;
+                                      font-family: 'Open Sans', sans-serif;
+                                      color: #5b5b5b;
+                                      line-height: 20px;
+                                      vertical-align: top;
+                                    ">
+                                  Type: Credit Card<br />
+
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                    <tbody>
+                      <tr>
+                        <td style="display:flex">
+                          <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
+                            <tbody>
+                              <tr class="hiddenMobile">
+                                <td height="35"></td>
+                              </tr>
+                              <tr class="visibleMobile">
+                                <td height="20"></td>
+                              </tr>
+                              <tr>
+                                <td style="
+                                      font-size: 11px;
+                                      font-family: 'Open Sans', sans-serif;
+                                      color: #5b5b5b;
+                                      line-height: 1;
+                                      vertical-align: top;
+                                    ">
+                                  <strong>SHIPPING INFORMATION</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td width="100%" height="10"></td>
+                              </tr>
+                              <tr>
+                                <td style="
+                                      font-size: 12px;
+                                      font-family: 'Open Sans', sans-serif;
+                                      color: #5b5b5b;
+                                      line-height: 20px;
+                                      vertical-align: top;
+                                    ">
+                                  <p style="width:200px; word-wrap: break-word;">
+                                    {{shipping_address}}
+                                  </p>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
+                            <tbody>
+                              <tr class="hiddenMobile">
+                                <td height="35"></td>
+                              </tr>
+                              <tr class="visibleMobile">
+                                <td height="20"></td>
+                              </tr>
+                              <tr>
+                                <td style="
+                                      font-size: 11px;
+                                      font-family: 'Open Sans', sans-serif;
+                                      color: #5b5b5b;
+                                      line-height: 1;
+                                      vertical-align: top;
+                                    ">
+                                  <strong>SHIPPING METHOD</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td width="100%" height="10"></td>
+                              </tr>
+                              <tr>
+                                <td style="
+                                      font-size: 12px;
+                                      font-family: 'Open Sans', sans-serif;
+                                      color: #5b5b5b;
+                                      line-height: 20px;
+                                      vertical-align: top;
+                                    ">
+                                  {{shipping_method}}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr class="hiddenMobile">
+                <td height="60"></td>
+              </tr>
+              <tr class="visibleMobile">
+                <td height="30"></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </body>
+
 </html>

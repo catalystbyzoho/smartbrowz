@@ -1,47 +1,46 @@
 {
-    "account": {
-        "company": "Zoho Corporation Private Limited",
-        "address": "Estancia IT Park",
-        "city": "Chennai",
-        "country": "India",
-        "postal": "600028",
-        "logo": "https://www.zoho.com/sites/default/files/ogimage/zoho-logo.png"
-    },
-    "billto": {
-        "company": "Zoho Corporation Private Limited",
-        "address": "Estancia IT Park",
-        "city": "Chennai",
-        "country": "India",
-        "postal": "600028"
-    },
-    "invoice": {
-        "id": "",
-        "date": "01/01/2021",
-        "due_date": "20/05/2021",
-        "lines": [
-            {
-                "total": "240",
-                "quantity": "12",
-                "price": "20",
-                "description": "Item 124",
-                "id": "124"
-            },
-            {
-                "total": "100",
-                "quantity": "1",
-                "price": "100",
-                "description": "Item 125",
-                "id": "125"
-            },
-            {
-                "total": "132",
-                "quantity": "3",
-                "price": "40",
-                "description": "Item 126",
-                "id": "126"
-            }
-        ],
-        "total_price": "160",
-        "notes": "This sales order line should now have a highlighted attachments field when looking at it from the list pane, however user will have to dig into the attachments to see the note attached"
-    }
-}
+    "brand_logo": "http://www.zylker.com/zf-logo-mark%20copy.png",
+    "brand_name": "Zylker",
+    "customer_name": "Philip Brooks",
+    "order_id": "800000025",
+    "order_date": "APRIL 1ST 2023",
+    "sub_total":"500",
+    "shipment_charge":"03",
+    "total":"999",
+    "tax":"02",
+    "billing_address":"Philip Brooks, Public Wales, Somewhere New York NY 4468, United States T: 202-555-0133",
+    "shipping_address":"Ship Brooks, Public Wales, Somewhere New York NY 4468, United States T: 202-555-013222",
+    "shipping_method":"Speed Post",
+    "products": [
+      {
+        "name": "Hp Laptop",
+        "unit": "MH792AM/A",
+        "quantity": 2,
+        "price": "499.95"
+      },
+      {
+        "name": "Boat Headphones",
+        "unit": "MH792AM/A",
+        "quantity": 1,
+        "price": "9.95"
+      },
+       {
+        "name": "Hp Laptop",
+        "unit": "MH792AM/A",
+        "quantity": 2,
+        "price": "499.95"
+      },
+       {
+        "name": "Hp Laptop",
+        "unit": "MH792AM/A",
+        "quantity": 2,
+        "price": "499.95"
+      },
+      {
+        "name": "Beats Studio Over-Ear Headphones",
+        "unit": "MH792AM/A",
+        "quantity": 5,
+        "price": "99.95"
+      }
+    ]
+  }
