@@ -3,7 +3,7 @@
 <br/>
   <a href="https://console.catalyst.zoho.com">
     <picture>
-      <img src="https://img.zohostatic.com/catalyst/img/Catalyst-Logo-857518f26c.svg" height="128">
+      <img src="https://avatars.githubusercontent.com/u/61141689?s=200&v=4" height="128">
     </picture>
     <h1 align="center">Browser360</h1>
     <p align="center">Run your browser through code in the cloud with Browser360.</p>
