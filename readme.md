@@ -3,7 +3,6 @@
 <br/>
   <a href="https://console.catalyst.zoho.com">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/4060187/196936123-f6e1db90-784d-4174-b774-92502b718836.png">
       <img src="https://img.zohostatic.com/catalyst/img/Catalyst-Logo-857518f26c.svg" height="128">
     </picture>
     <h1 align="center">Browser360</h1>
