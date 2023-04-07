@@ -5,8 +5,8 @@
     <picture>
       <img src="https://avatars.githubusercontent.com/u/61141689?s=200&v=4" height="128">
     </picture>
-    <h1 align="center">Browser360</h1>
-    <p align="center">Run your browser through code in the cloud with Browser360.</p>
+    <h1 align="center">SmartBrowz</h1>
+    <p align="center">Run your browser through code in the cloud with SmartBrowz.</p>
   </a>
 </p>
 
@@ -18,4 +18,4 @@
 
 ## Getting Started
 
-Visit <https://console.catalyst.zoho.com> to get started with browser360.
+Visit <https://console.catalyst.zoho.com> to get started with SmartBrowz.
