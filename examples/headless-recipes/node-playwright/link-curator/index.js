@@ -14,7 +14,7 @@ const fs = require('fs');
 	var allLinks = await page.evaluate(() => {
 		var allLinks = [];
 		var allLinkElements = document.getElementsByTagName("a");
-
+//Get all the anchor tags present in the webpage
 		for (var i = 0; i < allLinkElements.length; i++) {
 
 			allLinks.push(allLinkElements[i].href);
@@ -22,15 +22,16 @@ const fs = require('fs');
 
 		return allLinks;
 	});
-	allLinks = [...new Set(allLinks)];//Remove duplicate if any
+	allLinks = [...new Set(allLinks)];//Remove duplicates from the scraped anchor tags and filter the first 10 hyperlinks
 	console.log("scarpe all the links");
 	console.log(allLinks);
 	try {
 		var summaryData = await getSummaryData(page, allLinks);
 	} catch (e) {
-		console.log(e);
+		console.log(e); //Will collect the page titles of the collected anchor tags
 	}
 	console.log("Summary Data", summaryData);
+	//The scraped information will be written in the CSV file
 	let csv = "";
 	summaryData.forEach(eachData => {
 		csv += "{ Title:" + eachData["title"] + '\n';
@@ -59,12 +60,10 @@ async function getSummaryData(page, allLinks) {
 async function navigateToPageAndGetTitle(page, hrefLink) {
 	try {
 		await page.goto(hrefLink, { waitUntil: "domcontentloaded" });
-		return await page.title();//Returns page title
+		return await page.title();
 	} catch (error) {
 		return "title not found";
 	}
 
 
 }
-
-

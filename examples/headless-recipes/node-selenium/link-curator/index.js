@@ -1,4 +1,3 @@
-
 const { Builder, Browser, By } = require('selenium-webdriver'), chrome = require('selenium-webdriver/chrome');
 const fs = require('fs');
 (async function index() {
@@ -14,29 +13,32 @@ const fs = require('fs');
         .forBrowser(Browser.CHROME)
         .setChromeOptions(options)
         .withCapabilities(chromeCapabilities)
-        .usingServer('https://73473952:a10d7187fb186980b31fcf1b1dd6b26f58c69107ed1c7fad22dcc1b8c9b0d9f3@apiagent.catalyst.localzoho.com/browser360/webdriver/3587000000018001') 
+        .usingServer('Your Webdriver Endpoint') 
         .build();
-    //let driver = await new Builder().forBrowser(Browser.CHROME).build()
+        const url = "https://catalyst.zoho.com";
+        const fetchMax =10;
     try {
         console.log("launching...")
-        await driver.get('https://catalyst.zoho.com');
+        await driver.get(url);
         console.log("get into the page..")
         var allLinks = [];
+//Will collect all the anchor tags that are present in the webpage
         var allLinkElements = await driver.findElements(By.css("a"));
         for (var i = 0; i < allLinkElements.length; i++) {
             allLinks.push(await allLinkElements[i].getAttribute("href"));
         }
         console.log("get all links..")
         console.log(allLinks)
-        allLinks = [...new Set(allLinks)];
+        allLinks = [...new Set(allLinks)].slice(0,fetchMax);//Will remove duplicates and collect the first 10 anchor tags
         console.log("get page title for each link...")
         try {
-            var summaryData = await getSummaryData(driver, allLinks);
+            var summaryData = await getSummaryData(driver, allLinks);//Will collect the page titles of the first 10 anchor tags
             driver.close();
         } catch (e) {
             console.log(e);
         }
         console.log(summaryData);
+//The scraped information will be written in the CSV file
         let csv = "";
         summaryData.forEach(eachData => {
             csv += "{ Title:" + eachData["title"] + '\n';

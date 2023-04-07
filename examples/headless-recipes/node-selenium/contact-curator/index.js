@@ -11,15 +11,16 @@ const { Builder, Browser, By, until } = require('selenium-webdriver'), chrome = 
         .forBrowser(Browser.CHROME)
         .setChromeOptions(options)
         .withCapabilities(chromeCapabilities)
-        .usingServer('https://73473952:a10d7187fb186980b31fcf1b1dd6b26f58c69107ed1c7fad22dcc1b8c9b0d9f3@apiagent.catalyst.localzoho.com/browser360/webdriver/3587000000018001')
+        .usingServer('YOUR WEBDRIVER ENDPOINT')
         .build();
-    //let driver = await new Builder().forBrowser(Browser.CHROME).build()
+        const url ="https://www.manageengine.com/"
     try {
         console.log("lanuching..")
-        await driver.get('https://www.manageengine.com/');
+        await driver.get(url);
         console.log('Get into the page..')
         var contactsFound = [];
         var allLinks = [];
+//Will scrape all the anchor tags
         var allLinkElements = await driver.findElements(By.css("a"));
         for (var i = 0; i < allLinkElements.length; i++) {
             allLinks.push(await allLinkElements[i].getAttribute("href"));
@@ -28,7 +29,7 @@ const { Builder, Browser, By, until } = require('selenium-webdriver'), chrome = 
         allLinks = [...new Set(allLinks)];
         console.log("Scarpe all the links");
         console.log(allLinks)
-        var keywords = ["about", "contact", "support"];
+        var keywords = ["about", "contact", "support"]; //The keywords that will be used to filter anchor tags that contain contact information
         var possibleLinks = [];
         console.log("check if there are any other pages with the contact information.");
         allLinks.forEach(eachLink => {
@@ -36,22 +37,22 @@ const { Builder, Browser, By, until } = require('selenium-webdriver'), chrome = 
             eachLink = eachLink.toString();
             keywords.forEach(eachKeyword => {
                 if (eachLink.includes(eachKeyword) && eachLink.startsWith("https://")) {
-                    possibleLinks.push(eachLink);
+                    possibleLinks.push(eachLink); //All the required anchor tags are collected
                 }
             });
         }
         });
         console.log(possibleLinks);
-        var contactsFound = await checkIfAnyContacts(driver, 'https://www.manageengine.com/')
+        var contactsFound = await checkIfAnyContacts(driver, url) //The contact information present in the inputted URL will be collected
         for await (var eachLink of possibleLinks) {
-            var newContactsFound = await checkIfAnyContacts(driver, eachLink);
+            var newContactsFound = await checkIfAnyContacts(driver, eachLink); //The contact information present in the anchor tags collected in line 40 will be scraped
             if (newContactsFound !== null)
                 contactsFound = contactsFound.concat(newContactsFound);
         }
         await driver.close();
         contactsFound = [...new Set(contactsFound)];
         console.log("Found all the contacts details")
-        console.log(contactsFound);
+        console.log(contactsFound); //The scraped contact information will be displayed
 
 
     }
@@ -63,7 +64,6 @@ async function checkIfAnyContacts(driver, hrefLink) {
     var contactsFound = [];
     const anchorKeywords = ["tel:", "mailto:", "twitter", "facebook", "instagram", "youtube", "linkedin", "github"];
     const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
-    //	const linkRegex = /((https?:\/\/)?([a-zA-Z0-9]+\.)+[a-zA-Z]{2,6}(\/[a-zA-Z0-9#?=&_%.]*)?)/g;
     const mobileRegex = /(\+?[0-9-()+ ]{10,})/g;
     const whitespaceRegex = /^\s*$/;
 
@@ -101,7 +101,6 @@ async function checkIfAnyContacts(driver, hrefLink) {
     var contacts = [];
     texts.forEach(element => {
         if (element.match(emailRegex) != null) { contacts = contacts.concat(element.match(emailRegex)); }
-        //	if(element.match(linkRegex) != null) { contacts = contacts.concat(element.match(linkRegex)); }
         if (element.match(mobileRegex) != null) { contacts = contacts.concat(element.match(mobileRegex)); }
     });
     contacts = [...new Set(contacts)];
@@ -112,5 +111,3 @@ async function checkIfAnyContacts(driver, hrefLink) {
     });
     return contactsFound;
 }
-
-

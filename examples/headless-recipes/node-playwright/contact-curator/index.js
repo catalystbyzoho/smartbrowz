@@ -1,7 +1,7 @@
 const playwright = require("playwright");
 const url = "https://www.manageengine.com/";
 
-(async function GetLeads() {
+(async function getContacts() {
 
 	var contactsFound = [];
 	const browser = await playwright.chromium.connectOverCDP({
@@ -15,7 +15,7 @@ const url = "https://www.manageengine.com/";
 
 	await page.goto(url, { waitUntil: "domcontentloaded" });
 	console.log("Get into the page..")
-	// Get All the Links from Anchor<a> Elements
+	// Scrape all the anchor tag '<a></a>' information.
 	var allLinks = await page.evaluate(() => {
 		var allLinks = [];
 		var allLinkElements = document.getElementsByTagName("a");
@@ -24,11 +24,11 @@ const url = "https://www.manageengine.com/";
 		}
 		return allLinks;
 	});
-	allLinks = [...new Set(allLinks)]; //delete the duplicates if any
+	allLinks = [...new Set(allLinks)]; //Delete any duplicates that may be present from the scraped information.
 	console.log("Scarpe all the links..")
-	var keywords = ["about", "contact", "support"];
+	var keywords = ["about", "contact", "support"]; //Keywords
 	var possibleLinks = [];
-	//check if there are any other pages with the contact information.
+	//Collect the anchor tags present in the links that match wih Keywords
 	console.log("check if there are any other pages with the contact information.")
 	allLinks.forEach(eachLink => {
 		eachLink = eachLink.toString();
@@ -39,14 +39,14 @@ const url = "https://www.manageengine.com/";
 		});
 	});
 	console.log(possibleLinks)
-	var contactsFound = await checkIfAnyContacts(page, url)
+	var contactsFound = await checkIfAnyContacts(page, url) //Scrape the contact information present in the inputted URL
 	for await (var eachLink of possibleLinks) {
-		var newContactsFound = await checkIfAnyContacts(page, eachLink);
-		contactsFound = contactsFound.concat(newContactsFound);
+		var newContactsFound = await checkIfAnyContacts(page, eachLink);// Scrape teh contact infomration present in the anchor tags collected in line 32
+		contactsFound = contactsFound.concat(newContactsFound); 
 	}
 	await browser.close();
 	contactsFound = [...new Set(contactsFound)];
-	console.log("Found all contact details..")
+	console.log("Found all contact details..")// Will display all the scraped contact information
 	console.log(contactsFound);
 	async function checkIfAnyContacts(page, hrefLink) {
 		var contactsFound = [];
@@ -102,4 +102,3 @@ const url = "https://www.manageengine.com/";
 	console.error(err);
 	process.exit(1);
 });
-

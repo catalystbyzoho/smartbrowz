@@ -1,10 +1,10 @@
 const puppeteer = require('puppeteer');
 
 const searchKeyword = "voice call";
-const paidAlso = true;
-const ratingGreaterThanOrEqualTo = "3"; // Allowed Values ["1", "2", "3", "4"]
+const paidAlso = true; //Change to false is you wish to ignore paid extensions
+ const ratingGreaterThanOrEqualTo = "4"; // Allowed Values ["1", "2", "3", "4"]
 const deploymentType = "zohoplatform";  // Allowed Values ["zohoplatform", "builtin", "apibuilt"]
-const fetchMax = 5;
+
 
 
 const url = "https://marketplace.zoho.com/gsearch?" + "searchTerm=" + searchKeyword;
@@ -51,20 +51,25 @@ const url = "https://marketplace.zoho.com/gsearch?" + "searchTerm=" + searchKeyw
     await sleep(10000);
 
     var extensionLinks = await page.evaluate(async (paidAlso) => {
-        var extensionLinks = [];
+        var freeExtensionLinks = [];
+        var paidExtensionLinks = [];
+        const fetchMax = 5;
         var hrefLinks = document.getElementsByClassName("positionAbsolute t0 left0 r0");
-        console.log(hrefLinks);//Scarpe only free extension links
+        console.log(hrefLinks);
+        //Scrape the links of all free extensions
         for (var i = 0; i < hrefLinks.length; i++) {
-            extensionLinks.push(hrefLinks[i].href);
+            freeExtensionLinks.push(hrefLinks[i].href);
         }
-
-        if (paidAlso) {// Scarpe paid extension links if needed
+        extensionLinks = [...new Set(freeExtensionLinks)].slice(0, fetchMax) //Remove any duplicates if present, and store only the first 5 links
+        if (paidAlso) {// Scrape the links of all the paid extensions
             document.getElementById("Paid").click();
             await sleep(5000);
             hrefLinks = document.getElementsByClassName("positionAbsolute t0 left0 r0");
             for (var i = 0; i < hrefLinks.length; i++) {
-                extensionLinks.push(hrefLinks[i].href);
+                paidExtensionLinks.push(hrefLinks[i].href);
             }
+            extensionLinks = freeExtensionLinks.concat([...new Set(paidExtensionLinks)].slice(0,fetchMax));//Collect the first 5 links of paid extensions after removing duplicates
+
 
         }
         return extensionLinks;
@@ -77,19 +82,19 @@ const url = "https://marketplace.zoho.com/gsearch?" + "searchTerm=" + searchKeyw
 
     }, paidAlso);
 
-    extensionLinks = [...new Set(extensionLinks)].slice(0, fetchMax);
+    extensionLinks = [...new Set(extensionLinks)];
     console.log(extensionLinks);
     for (let eachLink of extensionLinks) {
         const result = await scrapeExtensionPage(page, eachLink);
-        console.log(result);
+        console.log(result); //Displays the details of the scrapped extensions
     }
+   
     console.log("Finish scarping..")
     await browser.close();
 }());
 
 async function scrapeExtensionPage(page, hrefLink) {
     await page.goto(hrefLink, { waitUntil: "domcontentloaded" });
-    //scarpe extension link page details
     var summary = await page.evaluate(() => {
         let summary = {};
         summary["title"] = document.getElementsByTagName("h1")[0].innerText;

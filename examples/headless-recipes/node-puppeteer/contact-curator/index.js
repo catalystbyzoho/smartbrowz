@@ -1,6 +1,5 @@
-
 const puppeteer = require('puppeteer');
-const url = "https://www.manageengine.com/";
+const url = "https://www.manageengine.com/"; 
 
 (async function GetLeads() {
 
@@ -17,7 +16,7 @@ const url = "https://www.manageengine.com/";
 	await page.goto("https://catalyst.zoho.com", { waitUntil: "domcontentloaded" });
 	console.log("Get into the page..")
 
-	// Get All the Links from Anchor<a> Elements
+	// Get all the hyperlinks present in the webpage
 	var allLinks = await page.evaluate(() => {
 		var allLinks = [];
 		var allLinkElements = document.getElementsByTagName("a");
@@ -26,14 +25,14 @@ const url = "https://www.manageengine.com/";
 		}
 		return allLinks;
 	});
-	allLinks = [...new Set(allLinks)]; //delete the duplicates if any
+	allLinks = [...new Set(allLinks)]; // Delete any duplicates present in the scraped information.
 	console.log("Scarpe all the links..")
 	console.log(allLinks);
 
-	var keywords = ["about", "contact", "support"];
+	var keywords = ["about", "contact", "support"]; //Keywords Input
 	var possibleLinks = [];
 
-	//check if there are any other pages with the contact information.
+	//If the inputted keywords are present in the scraped information, the corressponding anchor tags will be collected
 	console.log("check if there are any other pages with the contact information.");
 	allLinks.forEach(eachLink => {
 		eachLink = eachLink.toString();
@@ -43,10 +42,10 @@ const url = "https://www.manageengine.com/";
 			}
 		});
 	});
-	console.log(possibleLinks)
-	var contactsFound = await checkIfAnyContacts(page, url)
+	console.log(possibleLinks) 
+	var contactsFound = await checkIfAnyContacts(page, url) //Will scrape any contact information present in the inputted URL
 	for await (var eachLink of possibleLinks) {
-		var newContactsFound = await checkIfAnyContacts(page, eachLink);
+		var newContactsFound = await checkIfAnyContacts(page, eachLink); //The contact information present in the anchor tags collected in line 41 will be scraped
 		contactsFound = contactsFound.concat(newContactsFound);
 	}
 
@@ -54,7 +53,7 @@ const url = "https://www.manageengine.com/";
 	await browser.close();
 	console.log("Found all the contact details..")
 	contactsFound = [...new Set(contactsFound)];
-	console.log(contactsFound);
+	console.log(contactsFound); //Display the scraped contact information
 	async function checkIfAnyContacts(page, hrefLink) {
 		var contactsFound = [];
 		const anchorKeywords = ["tel:", "mailto:", "twitter", "facebook", "instagram", "youtube", "linkedin", "github"];
@@ -115,4 +114,3 @@ const url = "https://www.manageengine.com/";
 	console.error(err);
 	process.exit(1);
 });
-

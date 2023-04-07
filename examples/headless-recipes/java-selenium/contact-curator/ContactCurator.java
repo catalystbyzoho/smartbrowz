@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedHashSet;
@@ -17,20 +16,21 @@ public class ContactCurator {
 	public static void main(String[] args) throws IOException {
 		String url = "https://www.manageengine.com/";
 		ChromeOptions chromeOptions = new ChromeOptions();
-		chromeOptions.addArguments("--no-sandbox");//No I18N
-		chromeOptions.addArguments("--headless");//No I18N
-		chromeOptions.addArguments("--disable-dev-shm-usage");//No I18N
+		chromeOptions.addArguments("--no-sandbox");
+		chromeOptions.addArguments("--headless");
+		chromeOptions.addArguments("--disable-dev-shm-usage");
 		RemoteWebDriver driver = new RemoteWebDriver(
 				new URL("YOUR WEBDRIVER ENDPOINT"),
-				chromeOptions);//No I18N
+				chromeOptions);
 		 System.out.println("Launching..");
 		 driver.get(url);
 		 System.out.println("Get into the page..");
 
-		 // Get All the Links from Anchor<a> Elements and check if there are any other pages with the contact information.
+//Collect all the anchor tags present in the webpage
 		 List<WebElement> allLinks =driver.findElements(By.tagName("a")); 
 		    Set<String> link1 = new LinkedHashSet<String>();
-		    String[] keywords = {"about", "contact", "support"};
+		    String[] keywords = {"about", "contact", "support"};//Keywords
+//All the anchor tags present in the scraped information that match with the keywords will be filtered.
 			for(WebElement link: allLinks) {
 				String links = link.getAttribute("href");
 				if(links!=null) {
@@ -43,12 +43,13 @@ public class ContactCurator {
 				}
 			}
 		     System.out.println(link1);
-			Set<String> contactsFound = checkIfAnyContacts(driver, url);
+			Set<String> contactsFound = checkIfAnyContacts(driver, url); //All the contact information present in the inputted URL will be collected
 			for(String link:link1) {
-				Set<String> newContactFound= checkIfAnyContacts(driver,link);
+				Set<String> newContactFound= checkIfAnyContacts(driver,link); //All the contact information present in the anchor tags that are filtered in line 34 wil be scraped
 				contactsFound.addAll(newContactFound);
 			}
 			System.out.println("Found all contact details..");
+//Will display all the contact information
 			for(String contact : contactsFound) {
 				System.out.println(contact);
 			}
@@ -92,12 +93,6 @@ public class ContactCurator {
 		}
 		
 		return contacts;
-		
-
-		
-	}
-
-
-		
-
+			
+	}		
 }

@@ -1,6 +1,6 @@
 const playwright = require('playwright');
-const url = "https://www.zoho.com/en-in/terms.html";
-const wordToSearch = "feed";
+const url = "https://www.zoho.com/en-in/terms.html"; //Webpage URL
+const wordToSearch = "feed"; //Keyword
 
 
 (async function findInPage() {
@@ -16,7 +16,7 @@ const wordToSearch = "feed";
 	await page.goto(url, { waitUntil: "domcontentloaded" });
 	console.log("Get into the page..")
 	console.log("Searching..")
-	//start to search word
+	//Collect the locations of where the matches are found
 	var foundWord = await page.evaluate((wordToSearch) => {
 		var wordFound = window.find(wordToSearch);
 		return JSON.stringify(wordFound);
@@ -28,7 +28,7 @@ const wordToSearch = "feed";
 		console.log("Word not found..")
 	}
 	var count = 1;
-	//Take screenshot
+	//Takes screenshot of the collected locations
 	while (foundWord == "true") {
 		await page.screenshot({ path: "shot" + count + ".png" });
 		count++;

@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
-const url = "https://www.zoho.com/en-in/terms.html";
-const wordToSearch = "fees";
+const url = "https://www.zoho.com/en-in/terms.html"; //Input URL
+const wordToSearch = "fees"; // Keyword
 (async function findInPage() {
 
 	const browser = await puppeteer.connect({
@@ -12,7 +12,7 @@ const wordToSearch = "fees";
 	await page.goto(url, { waitUntil: "domcontentloaded" });
 	console.log("Get into the page...")
 	console.log("Searching...")
-	//start to search word
+	//The location of the instances where the keyword is found in the input URL will be collected
 	var foundWord = await page.evaluate((wordToSearch) => {
 		var wordFound = window.find(wordToSearch);
 		return JSON.stringify(wordFound);
@@ -24,7 +24,7 @@ const wordToSearch = "fees";
 		console.log("Word not found..")
 	}
 	var count = 1;
-	// Take screenshot
+	// Screenshots of the collected locations will be taken.
 	while (foundWord == "true") {
 		await page.screenshot({ path: "shot" + count + ".png" });
 		count++;
@@ -43,4 +43,3 @@ const wordToSearch = "fees";
 	console.error(err);
 	process.exit(1);
 });
-

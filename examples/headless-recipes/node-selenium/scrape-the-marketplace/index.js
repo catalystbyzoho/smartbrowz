@@ -1,11 +1,10 @@
-
 const { Builder, Browser, By, until } = require('selenium-webdriver'), chrome = require('selenium-webdriver/chrome');
 
 (async function index() {
 
     const searchKeyword = "voice call";
-    const paidAlso = true;
-    const ratingGreaterThanOrEqualTo = "2"; // Allowed Values ["1", "2", "3", "4"]
+    const paidAlso = true; //Change to false is you wish to ignore paid extensions
+    const ratingGreaterThanOrEqualTo = "4"; // Allowed Values ["1", "2", "3", "4"]
     const deploymentType = "Zoho platform";  // Allowed Values ["Zoho platform", "Built-in integrations", "API-built integrations"]
     const fetchMax = 5;
     const url = "https://marketplace.zoho.com/gsearch?" + "searchTerm=" + searchKeyword;
@@ -17,11 +16,12 @@ const { Builder, Browser, By, until } = require('selenium-webdriver'), chrome = 
     options.addArguments('--disable-dev-shm-usage')
     const driver = new webdriver.Builder()
         .forBrowser(Browser.CHROME)
-        .setChromeOptions(options)
+       .setChromeOptions(options)
         .withCapabilities(chromeCapabilities)
         .usingServer('YOUR WEBDRIVER ENDPOINT')
         .build();
     console.log("launching..")
+    console.time();
     await driver.get(url);
     await driver.manage().setTimeouts({ implicit: 10000 });
     console.log("Get into the page")
@@ -46,30 +46,35 @@ const { Builder, Browser, By, until } = require('selenium-webdriver'), chrome = 
     console.log("deployment type selected..")
     await driver.findElement(By.xpath("//*[@id='pricing-object']/div[1]/div/label")).click();
     console.log("Scarpe the extension links..")
-    var extensionLinks = [];
+    var freeExtensionLinks = [];
+    var paidExtensionLinks = [];
+    var extensionLinks=[];
     var hrefLinks = await driver.findElements(By.className("positionAbsolute t0 left0 r0"))
 
-    //Scarpe only free extension links
+    //Scrape the links of all free extensions
     for (var i = 0; i < hrefLinks.length; i++) {
-        extensionLinks.push(await hrefLinks[i].getAttribute("href"));
+        freeExtensionLinks.push(await hrefLinks[i].getAttribute("href"));
     }
-
-    //Scarpe paid extension links
+    extensionLinks = [...new Set(freeExtensionLinks)].slice(0, fetchMax); //Remove any duplicates if present, and store only the first 5 links
+   
+    //Scrape the links of all the paid extensions
     if (paidAlso) {
         await driver.findElement(By.xpath("//*[@id='pricing-object']/div[2]/div/label")).click();
         hrefLinks = await driver.findElements(By.className("positionAbsolute t0 left0 r0"));
         for (var i = 0; i < hrefLinks.length; i++) {
-            extensionLinks.push(await hrefLinks[i].getAttribute("href"));
+            paidExtensionLinks.push(await hrefLinks[i].getAttribute("href"));
         }
+        extensionLinks= freeExtensionLinks.concat([...new Set(paidExtensionLinks)].slice(0,fetchMax));//Collect the first 5 links of paid extensions after removing duplicates
 
     }
-    extensionLinks = [...new Set(extensionLinks)].slice(0, fetchMax);//Remove dupliacte if any and fetch only needed number of links
+    
     console.log(extensionLinks)
     console.log("Start to scarpe the extension page")
     for (let eachLink of extensionLinks) {
         const result = await scrapeExtensionPage(driver, eachLink);
-        console.log(result);
+        console.log(result);//Displays the details of the scrapped extensions
     }
+    console.timeEnd();
     console.log("finish scarping..")
     await driver.close();
 }
@@ -83,11 +88,9 @@ const { Builder, Browser, By, until } = require('selenium-webdriver'), chrome = 
 async function scrapeExtensionPage(driver, hrefLink) {
     await driver.get(hrefLink);
 
-    //scarpe extension link page details
     let summary = {};
     summary["title"] = await driver.findElement((By.css("h1"))).getText();
     var builtFor = await driver.findElements(By.className("redirectVendor"));
-    //console.log(await builtFor[1].getText())
     summary["builtFor"] = await builtFor[1].getText();
 
     summary["tagline"] = await driver.findElement(By.className("extn-tagline extn-content")).getText();

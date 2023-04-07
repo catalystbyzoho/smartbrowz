@@ -1,7 +1,7 @@
-
 const fs = require('fs');
 const { Builder, Browser, By, until } = require('selenium-webdriver'), chrome = require('selenium-webdriver/chrome');
 ;
+const searchWord ="fees";// Keyword
 (async function index() {
     const webdriver = require('selenium-webdriver')
     const chromeCapabilities = webdriver.Capabilities.chrome();
@@ -15,12 +15,13 @@ const { Builder, Browser, By, until } = require('selenium-webdriver'), chrome = 
         .withCapabilities(chromeCapabilities)
         .usingServer('YOUR WEBDRIVER ENDPOINT')
         .build();
+        const url ="https://www.zoho.com/en-in/terms.html"; //URL
     await driver.manage().setTimeouts({ implicit: 10000 });
     console.log("launching..")
-    await driver.get('https://www.zoho.com/en-in/terms.html');
+    await driver.get(url);
     console.log("Get into the page")
-    //search the word by its path
-    var searchedWord = await driver.findElements(By.xpath("//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') ,'fees')]"));
+    // Collects the location of the instances where the keyword has been found
+    var searchedWord = await driver.findElements(By.xpath("//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') ,searchWord)]"));
     if (searchedWord.length != 0) {
         console.log("Word found..")
     }
@@ -28,7 +29,7 @@ const { Builder, Browser, By, until } = require('selenium-webdriver'), chrome = 
         console.log("Word not Found..")
     }
     var count = 0;
-    //Take screenshot
+    //Screenshots of the collected locations are taken
     for (var i = 0; i < searchedWord.length; i++) {
         let encodedString = await searchedWord[i].takeScreenshot(true);
         await fs.writeFileSync('image' + count + '.png', encodedString, 'base64');
@@ -41,4 +42,3 @@ const { Builder, Browser, By, until } = require('selenium-webdriver'), chrome = 
     console.error(err);
     process.exit(1);
 });
-

@@ -1,5 +1,3 @@
-
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -16,34 +14,34 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import com.google.common.io.Files;
 
-public class terms {
+public class FindInPage {
 
 	public static void main(String[] args) throws IOException {
 		
 		ChromeOptions chromeOptions = new ChromeOptions();
-		chromeOptions.addArguments("--no-sandbox");//No I18N
-		chromeOptions.addArguments("--headless");//No I18N
-		chromeOptions.addArguments("--disable-dev-shm-usage");//No I18N
-		//Change ChromeDriver with RemoteWebDriver
+		chromeOptions.addArguments("--no-sandbox");
+		chromeOptions.addArguments("--headless");
+		chromeOptions.addArguments("--disable-dev-shm-usage");
 		RemoteWebDriver driver = new RemoteWebDriver(
 				new URL("YOUR WEBDRIVER ENDPOINT"),
-				chromeOptions);//No I18N
+				chromeOptions);
             System.out.println("Launching..");
 		
 		try {
-		String url = "https://www.zoho.com/en-in/terms.html";
+		String url = "https://www.zoho.com/en-in/terms.html"; // Sample URL
+		String search ="fees"; //Sample Keyword
 		driver.get(url);
 		System.out.println("Get into the page..");
 		
-		//Search word by its path
-		List<WebElement> wordFound = driver.findElements(By.xpath("//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') ,'fees')]"));
+		//The location of the instances where the keyword is found in the input URL will be collected
+		List<WebElement> wordFound = driver.findElements(By.xpath("//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') ,search)]"));
 		System.out.println("Starts to search words...");
 		int count =1;
 		if(wordFound)
 			System.out.println("Word Found");
 		else
 			System.out.println("Word not Found"):
-		//Take screenshot
+		//Screenshots of the collected locations will be taken.
 		for(WebElement ele: wordFound) {
 			File SrcFile=ele.getScreenshotAs(OutputType.FILE);
 			File DestFile=new File("shot"+count+".png");

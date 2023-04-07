@@ -3,9 +3,10 @@ const fs = require('fs');
 
 (async () => {
 	const url = "https://catalyst.zoho.com"
+	const fetchMax =10;
 	try {
 		const browser = await puppeteer.connect({
-			browserWSEndpoint: 'ws://browser360.localcatalystserverless.app/__catalyst/headless-chrome?projectId=3587000000018001&api-key=a10d7187fb186980b31fcf1b1dd6b26f58c69107ed1c7fad22dcc1b8c9b0d9f3',
+			browserWSEndpoint: 'Enter your CDP Endpoint',
 			args: ['--no-sandbox', '--disable-dev-shm-usage']
 		});
 
@@ -14,7 +15,7 @@ const fs = require('fs');
 		await page.goto(url, { waitUntil: "domcontentloaded" });
 		console.log("Get into the page..");
 
-		// Get All the Links from Anchor<a> Elements
+//Get all the anchor tags present in the webpage
 		var allLinks = await page.evaluate(() => {
 			var allLinks = [];
 			var allLinkElements = document.getElementsByTagName("a");
@@ -27,14 +28,15 @@ const fs = require('fs');
 			return allLinks;
 		});
 		console.log("Scarpe all the links..");
-		allLinks = [...new Set(allLinks)];//Remove duplicate if any
+		allLinks = [...new Set(allLinks)].slice(0,fetchMax);//Remove duplicates from the scraped anchor tags and filter the first 10 hyperlinks
 		console.log(allLinks);
 		try {
-			var summaryData = await getSummaryData(await browser.newPage(), allLinks);
+			var summaryData = await getSummaryData(await browser.newPage(), allLinks); //Will collect the page titles of the collected anchor tags
 		} catch (e) {
 			console.log(e);
 		}
 		console.log("Summary Data", summaryData);
+//The scraped information will be written in the CSV file
 		let csv = "";
 		summaryData.forEach(eachData => {
 			csv += "{ Title:" + eachData["title"] + '\n';
@@ -72,7 +74,7 @@ async function getSummaryData(page, allLinks) {
 async function navigateToPageAndGetTitle(page, hrefLink) {
 	try {
 		await page.goto(hrefLink, { waitUntil: "domcontentloaded" });
-		return await page.title();//Return the page title
+		return await page.title();
 	} catch (error) {
 		console.log(error);
 		return "title not found";

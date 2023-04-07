@@ -1,4 +1,3 @@
-//$Id$
 package testcase;
 
 import java.util.ArrayList;
@@ -20,8 +19,8 @@ public class Marketplace {
 
 	public static void main(String[] args) {
 		String searchKeyword = "voice call";
-		boolean paidAlso = true;
-		String ratingGreaterThanOrEqualTo = "3"; // Allowed Values ["1", "2", "3", "4"]
+		boolean paidAlso = true; //Change to false is you wish to ignore paid extensions
+		String ratingGreaterThanOrEqualTo = "4"; // Allowed Values ["1", "2", "3", "4"]
 		String deploymentType = "Zoho platform";  // Allowed Values ["Zoho platform", "Built-in integrations", "API-built integrations"]
 		int fetchMax = 5;
 		try (Playwright playwright = Playwright.create()) {
@@ -36,7 +35,6 @@ public class Marketplace {
 			System.out.println("Launching...");
 			page.navigate(url);
 			System.out.println("Get into the page..");
-
 			switch(ratingGreaterThanOrEqualTo) {
 			case "1" : page.waitForSelector("//*[@id=\"rating-object\"]/div[4]").click(); break;
 			case "2" : page.waitForSelector("//*[@id=\"rating-object\"]/div[3]").click(); break;
@@ -50,63 +48,61 @@ public class Marketplace {
 			case "Built-in integrations" :page.waitForSelector("//*[@id=\"14\"]/a") .click(); break;
 			case "API-built integrations" :page.waitForSelector("//*[@id=\"15\"]/a").click(); break;
 			default : break;
-			}
+		}
 			System.out.println("deployment type selected..");
-			
-			//Free checkbox selected to scrape free extension link
 			page.waitForSelector("//*[@id=\"pricing-object\"]/div[1]/div/label").click();   
 			System.out.println("scarpe the extension links..");
 			ElementHandle extensionlink = page.querySelector("div[id=extension-listed]");
-			System.out.println(extensionlink);
+			
 			page.waitForLoadState(LoadState.NETWORKIDLE);
 			List<ElementHandle> freeLinks =extensionlink.querySelectorAll("div[class='default-card-wrapper  dIB mR20 mB20 box-borderBx posrel w320']");
-			System.out.println(freeLinks.size());
 		    Set<String> extensionLinks = new LinkedHashSet<String>();
-		    Set<String> extLink = new LinkedHashSet<String>();
-
-
-		    //Scarpe only free extension links
+		    //Scrape the links of all free extensions
+		    int count=0;
 		    for (int j = 0; j < freeLinks.size(); j++) {
 				String link = "https://marketplace.zoho.com"+freeLinks.get(j).waitForSelector("a[class='positionAbsolute t0 left0 r0']").getAttribute("href");
 				extensionLinks.add(link);
+				count++;
+				if(count == fetchMax) { //Remove any duplicates if present, and store only the first 5 links
+					count =0;
+					break;
 				}
-
-		    //Scarpe paid extension link also
+				}
+				//Scrape the links of all the paid extensions
 		    if(paidAlso) {
 				page.waitForSelector("//*[@id=\"pricing-object\"]/div[2]/div/label").click(); 
 				ElementHandle paidExtensionLink = page.querySelector("div[id=extension-listed]");
 				page.waitForLoadState(LoadState.NETWORKIDLE);
 				List<ElementHandle> paidLinks =paidExtensionLink.querySelectorAll("div[class='default-card-wrapper  dIB mR20 mB20 box-borderBx posrel w320']");
+				
 				for (int i = 0; i < paidLinks.size(); i++) {
+					count++;
 			   String  link = "https://marketplace.zoho.com"+ paidLinks.get(i).waitForSelector("a[class='positionAbsolute t0 left0 r0']").getAttribute("href");
 				extensionLinks.add(link);
+				if(count == fetchMax) { //Collect the first 5 links of paid extensions after removing duplicates
+					break;
+				}
 			}
 			}
-		    for(String link : extensionLinks) {
-		    	extLink.add(link);
-		    	fetchMax--;
-		    	if(fetchMax<0) {
-		    		break;
-		    	}
-		    }
 		    
-			System.out.println(extLink);
+		 
 			System.out.println("Start to scarpe the extension page details..");
 			ArrayList<HashMap<String, String>> finalResults = new ArrayList<HashMap<String, String>>();
-			for(String link : extLink) {
+			System.out.println(extensionLinks.size());
+			for(String link : extensionLinks) {
 				HashMap<String, String> map = scrapeExtensionPage(page, link);
 				finalResults.add(map);
-			}
+			} //Displays the details of the scrapped extensions
 			for (HashMap<String, String> map : finalResults) {
 				System.out.println("Title: " +map.get("title") + "\n" +"builtFor: "+ map.get("BuiltFor") + "\n" +"TagLine: " + map.get("tagline") + "\n" + "Rating: "+ map.get("rating") + "\n" + "Detailed Rating: "+ map.get("detailedRatings") + "\n" + "Short Description: "+map.get("shortDescription") + "\n" +"Key Features: "+ map.get("keyFeatures"));
 				System.out.println();
 			}
 			
 		}
-		catch(Exception ex) {	
+		catch(Exception ex) {
+			
 			System.out.print(ex);
 		}
-		page.close();
 
 	}
 	
@@ -117,7 +113,6 @@ public class Marketplace {
 	private static HashMap<String,String> scrapeExtensionPage(Page page, String s) {
         page.navigate(s);
 		HashMap<String, String> details = new HashMap();
-		//Scarping Extension links page details
 		try {
 			details.put("title",(page.waitForSelector("h1[class ='extn-title extensionTitle']")).innerHTML());
 			ElementHandle builtFor = page.waitForSelector("span[class ='extn-tagline extn-content partnerTxt inline-middle']");
@@ -145,24 +140,10 @@ public class Marketplace {
 				
 			}
 			details.put("keyFeatures",keyFeat);      
-			
-			
-			
-			
-			
-			
 		}
 		catch(Exception ex) {
 			System.out.print(ex);
 		}
-		return details;
-		
-
-		
+		return details;	
 	}
-
 }
-
-
-
-

@@ -1,8 +1,8 @@
 const playwright = require('playwright');
-const url = "https://polls-766644477.development.catalystserverless.com/app/";
+const url = "ENTER THE APPLICATION URL OF THE CATALYST DEMO POLLS APP";
 (async () => {
   const browser = await playwright.chromium.connectOverCDP({
-    wsEndpoint: 'YOUR CDP-ENDPOINT',
+    wsEndpoint: "YOUR CDP ENDPOINT",
     args: ['--no-sandbox', '--disable-dev-shm-usage']
   });
 
@@ -16,9 +16,9 @@ const url = "https://polls-766644477.development.catalystserverless.com/app/";
     const frameHandle = await page.waitForSelector('iframe')
     const frame = await frameHandle.contentFrame()
     await frame.waitForSelector("input[name='username']")
-    await frame.type("input[name='username']", 'YOUR USERNAME')
+    await frame.type("input[name='username']", 'ENTER YOUR EMAILID')
     await frame.waitForSelector("input[name='password']")
-    await frame.type("input[name='password']", 'YOUR PASSWORD')
+    await frame.type("input[name='password']", 'ENTER YOUR PASSWORD')
     await frame.click("input[type='submit']")
     console.log("Successfully logged in..")
     await page.click('button:has-text("Create Poll")', {
@@ -27,7 +27,7 @@ const url = "https://polls-766644477.development.catalystserverless.com/app/";
     });
     console.log("Starts to create poll")
     await page.waitForSelector("#QuestionContent");
-    await page.type("input[name='QuestionContent']", "Which is your favourite programming language");
+    await page.type("input[name='QuestionContent']", "Which is your preferred programming language?");
     await page.waitForSelector("#Option1Content");
     await page.type("input[name='Option1Content']", "nodejs");
 
@@ -50,14 +50,13 @@ const url = "https://polls-766644477.development.catalystserverless.com/app/";
     await page.click('button:has-text("Create Poll")');
     const ele = await page.waitForSelector('#displayContent > div > div.mB30 > h4');
     if (ele.length === 0) {
-      console.log("Failed to create");
+      console.log("Failed to create a poll");
     }
-    console.log("Poll created successfully");
+    console.log("Your poll has been successfully created");
     browser.close();
 
   }
   catch (e) {
-    console.log("Failed to create poll" + e)
+    console.log("Failed to create a poll" + e)
   }
-
 })()

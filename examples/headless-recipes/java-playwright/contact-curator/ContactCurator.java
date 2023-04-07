@@ -1,4 +1,3 @@
-//$Id$
 package testcase;
 
 import java.io.IOException;
@@ -15,7 +14,7 @@ import com.microsoft.playwright.ElementHandle;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 
-public class ContactCurator {
+public class GetContactsOfLead {
 
 	public static void main(String[] args) throws IOException {
 
@@ -31,10 +30,11 @@ public class ContactCurator {
 			page.navigate(url);
 			System.out.println("Get into the page..");
 			
-			// Get All the Links from Anchor<a> Elements
+//All the anchor tags will be collected
 			List<ElementHandle> allLinks =page.querySelectorAll("a");
 		    Set<String> possibleLink = new LinkedHashSet<String>();
-		    String[] keywords = {"about", "contact", "support"};
+		    String[] keywords = {"about", "contact", "support"}; //Keywords
+//The anchor tags that contain the Keywords will be filtered
 			for(ElementHandle link: allLinks) {
 				String links = link.getAttribute("href");
 				if(links!=null) {
@@ -47,13 +47,14 @@ public class ContactCurator {
 			System.out.println("Scarpe all the link..");
 			System.out.println(possibleLink);
 			
-			Set<String> contactsFound = checkIfAnyContacts(page, url);
+			Set<String> contactsFound = checkIfAnyContacts(page, url); //All the contact information present in the inputted URL will be collected
 			for(String link:possibleLink) {
-				Set<String> newContactFound= checkIfAnyContacts(page,link);
+				Set<String> newContactFound= checkIfAnyContacts(page,link); //All the contact information present in the filtered anchor tags that are collected in line 43 will be collected
 				System.out.print(newContactFound);
 				contactsFound.addAll(newContactFound);
 			}
 			System.out.println("Found all contact details..");
+//All the scraped contact information will be collected
 			for(String contact : contactsFound) {
 				System.out.println(contact);
 			}
@@ -89,11 +90,9 @@ public class ContactCurator {
 		}
 		
 		for(String text:possibleTexts) {
-			// Text matches with gmail regex 
 			if(Pattern.matches( "/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})/g",text) && text!=" ")
 				contacts.add(text);
-		
-			// Text matches with mobile regex
+
 			if(Pattern.matches( "/(\\+?[0-9-()+ ]{10,})/g",text) && text!= " ")
 				contacts.add(text);
 		}

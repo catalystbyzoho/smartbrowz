@@ -25,12 +25,12 @@ public class LinkCurator {
 		String url = "https://catalyst.zoho.com";
 		int fetchMax = 10;
 		ChromeOptions chromeOptions = new ChromeOptions();
-		chromeOptions.addArguments("--no-sandbox");//No I18N
-		chromeOptions.addArguments("--headless");//No I18N
-		chromeOptions.addArguments("--disable-dev-shm-usage");//No I18N
+		chromeOptions.addArguments("--no-sandbox");
+		chromeOptions.addArguments("--headless");
+		chromeOptions.addArguments("--disable-dev-shm-usage");
 		WebDriver driver = new RemoteWebDriver(
 				new URL("YOUR WEBDRIVER ENDPOINT"),      
-				chromeOptions);//No I18N
+				chromeOptions);
 		Set<String> link1 = new LinkedHashSet<String>();
 		try {
 			System.out.println("Launching Selenium....");
@@ -38,11 +38,12 @@ public class LinkCurator {
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			System.out.println("Get into the page");
 			
-		  	//scarpe all the links
+		  	//Collect all the hyperlinks present in the webpage
 	       		List<WebElement> allLinks = driver.findElements(By.tagName("a"));
 	       		System.out.println("Scarpe all the links");
 	        	for(WebElement link: allLinks) {
 				String links = link.getAttribute("href");
+				//Delete duplicates and collect the first 10 hyperlinks
 				if(links!=null) {
 					if(links.startsWith("https:")) {
 						link1.add(links);
@@ -55,7 +56,7 @@ public class LinkCurator {
 			}
 
 			System.out.println(Scarpe all the links..);
-			
+			//Will scrape the page titles of the first 10 hyoerlinks and write it in a CSV file
 			FileWriter writer = new FileWriter("Csv.csv");
 				for(String s : link1) {
 					String title = navigateToPageAndGetTitle(driver,s);
@@ -78,7 +79,6 @@ public class LinkCurator {
 		driver.quit();
 		}
 
-		//Navigate to the page and get title
 		private static String navigateToPageAndGetTitle(WebDriver driver1, String s) {
 			try {
 				driver1.get(s);
@@ -91,9 +91,3 @@ public class LinkCurator {
 
 	}
 }
-
-
-
-
-
-
