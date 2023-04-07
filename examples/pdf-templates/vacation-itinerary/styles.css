@@ -1,0 +1,60 @@
+body{
+  font-family:Montserrat;
+}
+div.a {
+  line-height: normal;
+  font-size: small;
+}
+h3{
+  font-weight:600;
+}
+b{
+  font-weight:600;
+  color:white;
+}
+.right-header{
+  margin-left: auto;
+  text-align: right;
+  font: normal normal normal 15px/24px Arial;
+}
+.left-header{
+  margin-right: auto;
+}
+.header1{
+    background-color: hsl(271, 41%, 41%);
+    height: 40px;
+    padding-top:0px;
+    text-align: center;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+} 
+table, th, td {
+  border: 0.5px  solid rgb(204, 203, 209);
+  border-spacing: 0;
+ 
+}
+
+  table {
+  font-family: arial, sans-serif;
+  width: -webkit-fill-available;
+   border-radius: 4px;
+}
+td, th {
+  
+  text-align: left;
+  padding: 10px;
+}
+.table th{
+  font-weight:600;
+  background: #F4F4F4;
+  font-size:small;
+}
+.table td{
+  
+  background: white;
+  font-size :small;
+}
+
+
+

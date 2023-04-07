@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://webfonts.zoho.com/css?family=Montserrat:300i,400,400i,500,500i,600,600i,700i,800">
+  </head>
+<body style="overflow-y:auto;">
+<section class="header">
+  <div class="right-header right">
+    <h3 style="float:left;margin:0 5px;display:flex;">Vacation Itinerary Template</h3>
+    <div class="a">{{ address.name}}<br>
+    {{ address.postal }}</div>
+  </div>
+</section>
+<br>
+<section>
+	<div class="header1">
+    <b>Client Information</b>
+	</div>
+   <br>
+	<div class="left-header">
+<section class="table">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Phone Number</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+        </tr>
+      {%for item in client.data%}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.phn }}</td>
+        <td>{{ item.start }}</td>
+        <td>{{ item.end}}</td>
+      </tr>
+    {%endfor %}
+</table>
+</section>
+<br><br>
+<!-- <img src="{{image.data}}" style="width:200px"> -->
+	</div>
+</section>
+<section>
+  	<div class="header1">
+        <b style="text-align:center">Flight Details</b>
+  	</div>
+    <br>
+    <section class="table">
+      <table>
+        <tr>
+          <th>Flight Details</th>
+          <th>Date</th>
+          <th>Airlines</th>
+          <th>Arrival time</th>
+          <th>Terminal</th>
+        </tr>
+      {%for item in flight.lines %}
+      <tr>
+        <td>{{ item.details }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.airlines }}</td>
+        <td>{{ item.arrivaltime}}</td>
+        <td>{{ item.terminal}}</td>
+      </tr>
+    {%endfor %}
+</table>
+</section>
+</section>
+<br><br>
+<section>
+  	<div class="header1">
+        <b style="text-align:center">Hotel Details</b>
+  	</div>
+    <br>
+    <section class="table">
+      <table>
+        <tr>
+          <th>Check In</th>
+          <th>Hotel</th>
+          <th>Address</th>
+          <th>Inclusion</th>
+          <th>Check Out</th>
+        </tr>
+      {%for item in hotel.lines %}
+      <tr>
+        <td>{{ item.in }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.address }}</td>
+        <td>{{ item.inclusion}}</td>
+        <td>{{ item.out}}</td>
+      </tr>
+    {%endfor %}
+</table>
+</section>
+</section>
+<br><br><br>
+<section>
+  	<div class="header1">
+        <b style="text-align:center">Activities</b>
+  	</div>
+    <br>
+    <section class="table">
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Destination/Place</th>
+          <th>Activities</th>
+          <th>Remarks</th>
+        </tr>
+      {%for item in activity.lines %}
+      <tr>
+        <td>{{ item.date }}</td>
+        <td>{{ item.place }}</td>
+        <td>{{ item.activity }}</td>
+        <td>{{ item.remark}}</td>
+      </tr>
+    {%endfor %}
+</table>
+</section>
+</section>
+
+
+</body>
+</html>

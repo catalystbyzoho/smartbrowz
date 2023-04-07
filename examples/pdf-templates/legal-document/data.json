@@ -1,0 +1,19 @@
+{
+    "parties": {
+      "employee": "[Amelia Burrows]",
+      "company": "Zylker Technologies Pvt. Ltd",
+      "address": "Upper Manhattan, Westside Colony, NY - 90045 "
+    },
+    "services":{
+        "days":"15"
+    },
+    "compensation":{
+        "amount" : "$7800.00"
+    },
+    "contract":{
+        "served":"10%",
+        "amount" :"50%",
+        "date" : "12/12/2023"
+  
+    }
+  }

@@ -1,0 +1,23 @@
+body{
+    font-family: Poppins;
+}
+.line{
+    width:100%;
+    height:1px;
+    background-color: black;
+    margin-left: 20px;
+  }
+  h1{
+      text-align: center;
+  }
+  h4{
+     font-weight:600; 
+  }
+  .indent{
+      margin-top:50px ;
+      margin-left: 20px ;
+  }
+  p,li{
+      line-height: 25px;
+      font-size:14px;
+  }

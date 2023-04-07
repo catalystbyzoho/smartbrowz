@@ -1,46 +1,46 @@
 {
-    "brand_logo": "http://www.zylker.com/zf-logo-mark%20copy.png",
-    "brand_name": "Zylker",
-    "customer_name": "Philip Brooks",
-    "order_id": "800000025",
-    "order_date": "APRIL 1ST 2023",
-    "sub_total":"500",
-    "shipment_charge":"03",
-    "total":"999",
-    "tax":"02",
-    "billing_address":"Philip Brooks, Public Wales, Somewhere New York NY 4468, United States T: 202-555-0133",
-    "shipping_address":"Ship Brooks, Public Wales, Somewhere New York NY 4468, United States T: 202-555-013222",
-    "shipping_method":"Speed Post",
-    "products": [
-      {
-        "name": "Hp Laptop",
-        "unit": "MH792AM/A",
-        "quantity": 2,
-        "price": "499.95"
-      },
-      {
-        "name": "Boat Headphones",
-        "unit": "MH792AM/A",
-        "quantity": 1,
-        "price": "9.95"
-      },
-       {
-        "name": "Hp Laptop",
-        "unit": "MH792AM/A",
-        "quantity": 2,
-        "price": "499.95"
-      },
-       {
-        "name": "Hp Laptop",
-        "unit": "MH792AM/A",
-        "quantity": 2,
-        "price": "499.95"
-      },
-      {
-        "name": "Beats Studio Over-Ear Headphones",
-        "unit": "MH792AM/A",
-        "quantity": 5,
-        "price": "99.95"
-      }
-    ]
-  }
+  "brand_logo": "http://www.zylker.com/zf-logo-mark%20copy.png",
+  "brand_name": "Zylker",
+  "customer_name": "Amelia Burrows.",
+  "order_id": "800000025",
+  "order_date": "APRIL 1ST 2023",
+  "sub_total": "500",
+  "shipment_charge": "03",
+  "total": "999",
+  "tax": "02",
+  "billing_address": "Amelia Burrows, Manhattan, New York NY 4468, United States T: 202-555-0133",
+  "shipping_address": "Amelia Burrows, Manhattan, New York NY 4468, United States T: 202-555-0133",
+  "shipping_method": "Mail",
+  "products": [
+    {
+      "name": "Hp Laptop",
+      "unit": "MH792AM/A",
+      "quantity": 2,
+      "price": "499.95"
+    },
+    {
+      "name": "Audio-Technica Headphones",
+      "unit": "MH792AM/A",
+      "quantity": 1,
+      "price": "9.95"
+    },
+    {
+      "name": "Hp Laptop Bag",
+      "unit": "MH792AM/A",
+      "quantity": 2,
+      "price": "499.95"
+    },
+    {
+      "name": "Hp Laptop Adapter",
+      "unit": "MH792AM/A",
+      "quantity": 2,
+      "price": "499.95"
+    },
+    {
+      "name": "Marshall Major IV Over-Ear Headphones",
+      "unit": "MH792AM/A",
+      "quantity": 5,
+      "price": "99.95"
+    }
+  ]
+}

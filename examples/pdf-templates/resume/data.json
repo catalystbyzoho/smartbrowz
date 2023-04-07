@@ -1,0 +1,44 @@
+{
+  "data": {
+    "name": "Amelia Burrows",
+    "role": "Sr. Product Developer",
+    "profile":"https://www.zoho.com/sites/default/files/catalyst/examples/profile.png"
+  },
+  "contacts": {
+    "address": "Skylark Street, Postal Avenue, NY - 212",
+    "phone": "+1-212-6782782",
+    "email": "amelia.burrows@zylker.com"
+  },
+  "wrk_experience": {
+    "1": {
+      "year": "2025",
+      "title": "Senior Product Developer",
+      "description": "Zylker Technologies | 2020-Present",
+      "point1": "Direct Software Engineering and Planning",
+      "point2": "Evaluate software program and quality"
+    },
+    "2": {
+      "year": "2020",
+      "title": "Junior Associate Engineer",
+      "description": "Wayne Technologies |2019-2020",
+      "point1": "Direct Software Engineering and Planning",
+      "point2": "Evaluate software program and quality"
+    }
+  },
+  "education": {
+    "degree": "Bachelor of Science in Software Engineering",
+    "start": "2005",
+    "end": "2010",
+    "year": "2010-2014 Bachelor Degree in ",
+    "university": "Engineering San Deigo University"
+  },
+  "skills": {
+    "1": "Solid Works",
+    "2": "MATLAB"
+  },
+  "hobby": {
+    "camera": "https://www.zoho.com/sites/default/files/catalyst/examples/camera.svg",
+    "book": "https://www.zoho.com/sites/default/files/catalyst/examples/book.svg",
+    "cycling": "https://www.zoho.com/sites/default/files/catalyst/examples/cycle.svg"
+  }
+}

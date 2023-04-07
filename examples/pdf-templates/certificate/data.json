@@ -1,14 +1,13 @@
 {
-	"brand_logo": "http://www.zylker.com/zf-logo-mark%20copy.png",
-	"brand_name": "Zylker",
-	"name": "Muthaiyan",
-	"workshop_name": "Code like a Ninja",
-	"event_duration": "one day",
-	"event_description": "building cutting-edge cloud applications",
-	"team_name": "Team Catalyst",
-	"event_name": "Pragyan'23",
-	"event_location": "National Institute of Technology, Tiruchirapalli ",
-	"event_date": "20th February 2021",
-	"hr_signature": "https://www.signwell.com/assets/vip-signatures/muhammad-ali-signature-6a40cd5a6c27559411db066f62d64886c42bbeb03b347237ffae98b0b15e0005.svg",
-	"manager_signature": "https://www.signwell.com/assets/vip-signatures/muhammad-ali-signature-6a40cd5a6c27559411db066f62d64886c42bbeb03b347237ffae98b0b15e0005.svg"
-  }
+  "brand_logo": "http://www.zylker.com/zf-logo-mark%20copy.png",
+  "brand_name": "Zylker",
+  "name": "Amelia Burrows",
+  "workshop_name": "Peak Level Serverless Computing",
+  "event_duration": "one day",
+  "event_description": "building cutting-edge cloud applications",
+  "team_name": "Zylker Technologies ",
+  "event_name": "Zylker Technologies Pvt. Ltd.,",
+  "event_location": "Manhattan, NewYork",
+  "event_date": "20th February 2021"
+ 
+}

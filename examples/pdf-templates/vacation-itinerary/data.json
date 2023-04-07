@@ -1,0 +1,61 @@
+{
+  "address": {
+    "name": "107 Traction Street,Green Ville",
+    "postal": "South carolina-600028"
+  },
+  "client": {
+    "data": [
+      {
+        "name": "Amelia Burrows",
+        "phn": "+1-212-6782782",
+        "start": "Monday,Feburary,28,2019",
+        "end": "Monday,March,28,2019"
+      }
+    ]
+  },
+  "flight": {
+    "lines": [
+      {
+        "details": "Departure",
+        "date": "22/11/2019",
+        "airlines": "Wayne Airlines",
+        "arrivaltime": "04:52 PM",
+        "terminal": "ABX"
+      },
+      {
+        "details": "Arrival",
+        "date": "22/11/2019",
+        "airlines": "Wayne Airlines",
+        "arrivaltime": "09:10 AM",
+        "terminal": "ABX"
+      }
+    ]
+  },
+  "hotel": {
+    "lines": [
+      {
+        "in": "01:00 AM",
+        "name": "Zylker Hotel",
+        "address": "3796 Lincoln Street",
+        "inclusion": "All Inclusive",
+        "out": "12.00 PM"
+      }
+    ]
+  },
+  "activity": {
+    "lines": [
+      {
+        "date": "02/11/2019",
+        "place": "Yosimete National Park",
+        "activity": "Trekking",
+        "remark": "Water"
+      },
+      {
+        "date": "07/11/2019",
+        "place": "Golden Gate Bridge",
+        "activity": "Biking",
+        "remark": "Helmet Madate"
+      }
+    ]
+  }
+}
