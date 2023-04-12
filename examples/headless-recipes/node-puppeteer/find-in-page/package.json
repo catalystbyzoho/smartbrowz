@@ -1,7 +1,7 @@
 {
   "name": "find-in-page",
   "version": "1.0.0",
-  "description": "",
+  "description": "This recipe enables you to crawl a webpage of your choice, search for a specific keyword that you specify, and capture screenshots of the webpage. The screenshots will be saved in the .png format and stored in your project directory. As an example, we have utilized Zoho's Terms of Service webpage and searched for the keyword \"Fees\". You can customize the input by providing your own webpage and keyword.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,3 +13,4 @@
     "puppeteer": "^19.8.3"
   }
 }
+
